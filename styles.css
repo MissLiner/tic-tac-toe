@@ -1,0 +1,12 @@
+#gameboard {
+    border:solid;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 400px;
+    width: 400px;
+}
+
+.game-box {
+    border: solid;
+    font-size: 50px;
+}
