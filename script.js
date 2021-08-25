@@ -1,5 +1,5 @@
 const Gameboard = (function() {
-    const board = ['O', 'X', 'O', 'X', 'X', 'X', 'O', 'O', 'X'];
+    const board = ['', '', '', '', '', '', '', '', ''];
     return board;
 })()
 
@@ -11,19 +11,19 @@ const gameBoxes = document.querySelectorAll('.game-box');
         box.addEventListener('click', () => {
             if (turn === 'player1') {
                 box.textContent = 'X';
-                Gameboard[this.id] = 'X';
+                Gameboard[box.id] = 'X';
                 turn = 'player2';
             }
             else {
                 box.textContent = 'O';
-                Gameboard[this.id] = 'O';
+                Gameboard[box.id] = 'O';
                 turn = 'player1';
             }
         })
     })
-    for (i = 0; i < 9; i++) {
-        gameBoxes[i].textContent = Gameboard[i];
-    }
+    // for (i = 0; i < 9; i++) {
+    //     gameBoxes[i].textContent = Gameboard[i];
+    // }
 })()
 
 const playerFactory = (name, marker) => {
