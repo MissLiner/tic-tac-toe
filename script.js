@@ -9,15 +9,17 @@ const gameBoxes = document.querySelectorAll('.game-box');
     let turn = 'player1';
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-            if (turn === 'player1') {
-                box.textContent = 'X';
-                Gameboard[box.id] = 'X';
-                turn = 'player2';
-            }
-            else {
-                box.textContent = 'O';
-                Gameboard[box.id] = 'O';
-                turn = 'player1';
+            if (box.textContent === '') {
+                if (turn === 'player1' && box.textContent === '') {
+                    box.textContent = 'X';
+                    Gameboard[box.id] = 'X';
+                    turn = 'player2';
+                }
+                else {
+                    box.textContent = 'O';
+                    Gameboard[box.id] = 'O';
+                    turn = 'player1';
+                }
             }
         })
     })
