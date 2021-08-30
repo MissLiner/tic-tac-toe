@@ -1,9 +1,15 @@
+* {
+    font-family: helvetica, arial, sans-serif;
+    text-align: center;
+}
+
 #gameboard {
     border:solid;
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     height: 450px;
+    margin: auto;
     width: 450px;
 }
 
@@ -13,4 +19,8 @@
     text-align: center;
     /* height: 33%;
     width: 33%; */
+}
+
+.hidden {
+    display:none
 }
