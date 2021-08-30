@@ -11,36 +11,64 @@ const playerFactory = (name, marker) => {
 const Gameboard = (() => {
     //hold board piece position info
     const board = ['', '', '', '', '', '', '', '', ''];
+    //check for win or draw
+    checkWin = (a, b, c) => {
+        if (a && a === b && b === c) {
+            Controller.outcome = `player${a}`;
+        }
+        else {
+            Controller.outcome = 'draw';
+        }
+    }
+    endGame = () => {
+    checkWin(board[0], board[1], board[2]);
+    checkWin(board[3], board[4], board[5]);
+    checkWin(board[6], board[7], board[8]);
+    checkWin(board[0], board[3], board[6]);
+    checkWin(board[1], board[4], board[7]);
+    checkWin(board[2], board[5], board[8]);
+    checkWin(board[0], board[4], board[8]);
+    checkWin(board[2], board[4], board[6]);
+    }
     //update board on player move
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
              if (box.textContent === '') {
                 if (Controller.turn === 'player1') {
                     box.textContent = 'X';
-                    Gameboard.board[box.id] = '1';
+                    board[box.id] = '1';
                     turn = 'player2';
                 }
                 else {
                     box.textContent = 'O';
-                    Gameboard.board[box.id] = '2';
+                    board[box.id] = '2';
                     turn = 'player1';
                 };
             };
-            Gameboard.endGame();
+            endGame();
         });
     });
-    //check for win or draw
     //clear board
-
 })()
 
 const Controller = (() => {
-    //switch turns
-    let turn = 'player1';
-    //update game status
-    let outcome = 'none';
     //keep track of how many turns have been taken
     let turnCounter = 0;
+    //update game status
+    let outcome = 'none';
+    //switch turns
+    let turn = 'player1';
+    switchTurn = () => {
+        if (turn === 'player1') {
+            turn = 'player2';
+        }
+        else {
+            turn = 'player1'
+        }
+        turnCounter++;
+    }
+
+
     //create players
         //ask for name
         //assign player marker
