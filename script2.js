@@ -11,13 +11,14 @@ const playerFactory = (name, marker) => {
 const Gameboard = (() => {
     //hold board piece position info
     const board = ['', '', '', '', '', '', '', '', ''];
+    let outcomeUpdate = 'none';
     //check for win or draw
     checkWin = (a, b, c) => {
         if (a && a === b && b === c) {
-            Controller.outcome = `player${a}`;
+            outcomeUpdate = `player${a}`;
         }
         else {
-            Controller.outcome = 'draw';
+            outcomeUpdate = 'draw';
         }
     }
     endGame = () => {
@@ -34,41 +35,55 @@ const Gameboard = (() => {
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
              if (box.textContent === '') {
-                if (Controller.turn === 'player1') {
+                if (Controller.turn[0] === 'player1') {
                     box.textContent = 'X';
                     board[box.id] = '1';
-                    turn = 'player2';
                 }
                 else {
                     box.textContent = 'O';
                     board[box.id] = '2';
-                    turn = 'player1';
                 };
             };
             endGame();
         });
     });
     //clear board
+    //return stuff
+    return {
+        outcomeUpdate,
+    }
 })()
 
 const Controller = (() => {
     //keep track of how many turns have been taken
-    let turnCounter = 0;
+    const turnCounter = [0];
     //update game status
     let outcome = 'none';
     //switch turns
-    let turn = 'player1';
+   const turn = ['player1'];
     switchTurn = () => {
-        if (turn === 'player1') {
-            turn = 'player2';
+        if (turn[0] === 'player1') {
+            console.log('hello');
+            turn[0] = 'player2';
         }
-        else {
-            turn = 'player1'
+        else if (turn[0] === 'player2') {
+            console.log('yo');
+            turn[0] = 'player1';
         }
-        turnCounter++;
+        turnCounter[0] = turnCounter[0]+1;
     }
-
-
+    gameBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+            outcome = Gameboard.outcomeUpdate;
+            if (outcome.includes('player')) {
+                gameMessages.classList.remove('hidden');
+                gameMessages.textContent = `${outcome.name} wins!`;
+            }
+            else {
+            switchTurn();
+            }
+        });
+    });
     //create players
         //ask for name
         //assign player marker
@@ -86,6 +101,11 @@ const Controller = (() => {
         //clear board array
         //clear board display
         //create players
-
+    //return stuff
+    return {
+        outcome,
+        turn,
+        turnCounter,
+    }
 
 })()
