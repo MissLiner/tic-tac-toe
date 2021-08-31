@@ -12,9 +12,12 @@ const playerFactory = (name, marker, turn) => {
     return {name, marker, wins};
 };
 
+let players = [];
+
 playerForm.addEventListener('submit', () => {
     const player1 = playerFactory(playerInput1.textContent, 'x', '1');
     const player2 = playerFactory(playerInput2.textContent, 'o', '2');
+    players.push(player1, player2);
 })
 // const player1 = playerFactory('Caroline', 'x');
 // const player2 = playerFactory('Annabelle', 'o');
@@ -72,15 +75,15 @@ const Controller = (() => {
     //update game status
     const outcome = ['none'];
     //switch turns
-    const turn = player1;
+    const turn = players.player1;
     switchTurn = () => {
-        if (turn[0] === player1) {
+        if (turn[0] === players.player1) {
             console.log('hello');
-            turn[0] = player2;
+            turn[0] = players.player2;
         }
-        else if (turn[0] === player2) {
+        else if (turn[0] === players.player2) {
             console.log('yo');
-            turn[0] = player1;
+            turn[0] = players.player1;
         }
         turnCounter[0] = turnCounter[0]+1;
     }
