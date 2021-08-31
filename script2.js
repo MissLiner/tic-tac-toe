@@ -11,25 +11,26 @@ const playerFactory = (name, marker) => {
 const Gameboard = (() => {
     //hold board piece position info
     const board = ['', '', '', '', '', '', '', '', ''];
-    let outcomeUpdate = 'none';
+    const outcomeUpdate = ['none'];
     //check for win or draw
     checkWin = (a, b, c) => {
         if (a && a === b && b === c) {
-            outcomeUpdate = `player${a}`;
+            outcomeUpdate[0] = `player${a}`;
+            return true;
         }
         else {
-            outcomeUpdate = 'draw';
+            outcomeUpdate[0] = 'draw';
         }
     }
     endGame = () => {
-    checkWin(board[0], board[1], board[2]);
-    checkWin(board[3], board[4], board[5]);
-    checkWin(board[6], board[7], board[8]);
-    checkWin(board[0], board[3], board[6]);
-    checkWin(board[1], board[4], board[7]);
-    checkWin(board[2], board[5], board[8]);
-    checkWin(board[0], board[4], board[8]);
-    checkWin(board[2], board[4], board[6]);
+        if (checkWin(board[0], board[1], board[2]) === true) { return };
+        checkWin(board[3], board[4], board[5]);
+        checkWin(board[6], board[7], board[8]);
+        checkWin(board[0], board[3], board[6]);
+        checkWin(board[1], board[4], board[7]);
+        checkWin(board[2], board[5], board[8]);
+        checkWin(board[0], board[4], board[8]);
+        checkWin(board[2], board[4], board[6]);
     }
     //update board on player move
     gameBoxes.forEach(box => {
@@ -58,7 +59,7 @@ const Controller = (() => {
     //keep track of how many turns have been taken
     const turnCounter = [0];
     //update game status
-    let outcome = 'none';
+    const outcome = ['none'];
     //switch turns
    const turn = ['player1'];
     switchTurn = () => {
@@ -74,8 +75,8 @@ const Controller = (() => {
     }
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-            outcome = Gameboard.outcomeUpdate;
-            if (outcome.includes('player')) {
+            outcome[0] = Gameboard.outcomeUpdate[0];
+            if (outcome[0].includes('player')) {
                 gameMessages.classList.remove('hidden');
                 gameMessages.textContent = `${outcome.name} wins!`;
             }
