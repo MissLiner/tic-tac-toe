@@ -19,7 +19,6 @@ const players = (() => {
     playerBtn.addEventListener('click', () => {
         player1.push(playerFactory(playerInput1.value, 'x', '1'));
         player2.push(playerFactory(playerInput2.value, 'o', '2'));
-        console.log(player1);
         playerInput1.value = '';
         playerInput2.value = '';
         return {player1, player2};
@@ -58,7 +57,7 @@ const Gameboard = (() => {
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
              if (box.textContent === '') {
-                if (Controller.turn === players.player1) {
+                if (Controller.turn[0] === '1') {
                     box.textContent = 'X';
                     board[box.id] = '1';
                 }
@@ -83,13 +82,13 @@ const Controller = (() => {
     //update game status
     const outcome = ['none'];
     //switch turns
-    let turn = players.player1;
+    const turn = ['1'];
     switchTurn = () => {
-        if (turn === players.player1) {
-            turn = players.player2;
+        if (turn[0] === '1') {
+            turn[0] = '2';
         }
-        else if (turn === players.player2) {
-            turn = players.player1;
+        else if (turn[0] === '2') {
+            turn[0] = '1';
         }
         turnCounter[0] = turnCounter[0]+1;
     }
@@ -97,9 +96,13 @@ const Controller = (() => {
         box.addEventListener('click', () => {
             outcome[0] = Gameboard.outcomeUpdate[0];
             if (outcome[0].includes('player')) {
-               
                 gameMessages.classList.remove('hidden');
-                gameMessages.textContent = `${turn.name} wins!`;
+                if (turn[0] = '1') {
+                    gameMessages.textContent = `${players.player1.name} wins!`;
+                }
+                else {
+                    gameMessages.textContent = `${players.player2.name} wins!`;
+                }
             }
             else {
             switchTurn();
