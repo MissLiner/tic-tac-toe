@@ -5,29 +5,23 @@ const playerBtn = document.getElementById('player-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 
+const playerFactory = (name, marker) => {
+    this.name = name;
+    this.marker = marker;
+    this.wins = 0;
+    return {name, marker, wins};
+};
 
-const players = (() => {  
-    const playerFactory = (name, marker, turn) => {
-        this.name = name;
-        this.marker = marker;
-        this.turn = `player${turn}`
-        this.wins = 0;
-        return {name, marker, wins};
-    };
-    const player1 = [];
-    const player2 = [];
-    playerBtn.addEventListener('click', () => {
-        player1.push(playerFactory(playerInput1.value, 'x', '1'));
-        player2.push(playerFactory(playerInput2.value, 'o', '2'));
-        playerInput1.value = '';
-        playerInput2.value = '';
-        return {player1, player2};
-    })
-    return {
-        player1,
-        player2
-    }
-})()
+const player1 = playerFactory('', 'x');
+const player2 = playerFactory('', 'o');
+
+playerBtn.addEventListener('click', () => {
+    player1.name = playerInput1.value;
+    player2.name = playerInput2.value;
+    playerInput1.value = '';
+    playerInput2.value = '';
+})
+
 
 const Gameboard = (() => {
     //hold board piece position info
@@ -98,10 +92,10 @@ const Controller = (() => {
             if (outcome[0].includes('player')) {
                 gameMessages.classList.remove('hidden');
                 if (turn[0] = '1') {
-                    gameMessages.textContent = `${players.player1.name} wins!`;
+                    gameMessages.textContent = `${player1.name} wins!`;
                 }
                 else {
-                    gameMessages.textContent = `${players.player2.name} wins!`;
+                    gameMessages.textContent = `${player2.name} wins!`;
                 }
             }
             else {
