@@ -1,26 +1,34 @@
 const gameBoxes = document.querySelectorAll('.game-box');
 const gameMessages = document.getElementById('game-messages');
 const playerForm = document.getElementById('player-form');
+const playerBtn = document.getElementById('player-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 
-const playerFactory = (name, marker, turn) => {
-    this.name = name;
-    this.marker = marker;
-    this.turn = `player${turn}`
-    this.wins = 0;
-    return {name, marker, wins};
-};
 
-let players = [];
-
-playerForm.addEventListener('submit', () => {
-    const player1 = playerFactory(playerInput1.textContent, 'x', '1');
-    const player2 = playerFactory(playerInput2.textContent, 'o', '2');
-    players.push(player1, player2);
-})
-// const player1 = playerFactory('Caroline', 'x');
-// const player2 = playerFactory('Annabelle', 'o');
+const players = (() => {  
+    const playerFactory = (name, marker, turn) => {
+        this.name = name;
+        this.marker = marker;
+        this.turn = `player${turn}`
+        this.wins = 0;
+        return {name, marker, wins};
+    };
+    const player1 = [];
+    const player2 = [];
+    playerBtn.addEventListener('click', () => {
+        player1.push(playerFactory(playerInput1.value, 'x', '1'));
+        player2.push(playerFactory(playerInput2.value, 'o', '2'));
+        console.log(player1);
+        playerInput1.value = '';
+        playerInput2.value = '';
+        return {player1, player2};
+    })
+    return {
+        player1,
+        player2
+    }
+})()
 
 const Gameboard = (() => {
     //hold board piece position info
@@ -50,7 +58,7 @@ const Gameboard = (() => {
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
              if (box.textContent === '') {
-                if (Controller.turn[0] === 'player1') {
+                if (Controller.turn === players.player1) {
                     box.textContent = 'X';
                     board[box.id] = '1';
                 }
@@ -75,15 +83,13 @@ const Controller = (() => {
     //update game status
     const outcome = ['none'];
     //switch turns
-    const turn = players.player1;
+    let turn = players.player1;
     switchTurn = () => {
-        if (turn[0] === players.player1) {
-            console.log('hello');
-            turn[0] = players.player2;
+        if (turn === players.player1) {
+            turn = players.player2;
         }
-        else if (turn[0] === players.player2) {
-            console.log('yo');
-            turn[0] = players.player1;
+        else if (turn === players.player2) {
+            turn = players.player1;
         }
         turnCounter[0] = turnCounter[0]+1;
     }
@@ -93,7 +99,7 @@ const Controller = (() => {
             if (outcome[0].includes('player')) {
                
                 gameMessages.classList.remove('hidden');
-                gameMessages.textContent = `${turn[0].name} wins!`;
+                gameMessages.textContent = `${turn.name} wins!`;
             }
             else {
             switchTurn();
