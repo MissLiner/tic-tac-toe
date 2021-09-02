@@ -5,7 +5,6 @@ const playerBtn = document.getElementById('player-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 const playAgainBtn = document.getElementById('play-again-btn');
-const playerForm = document.getElementById('player-form');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -14,6 +13,11 @@ const playerFactory = (name, marker) => {
     return {name, marker, wins};
 };
 
+// const player1 = {
+//     name: 'Carol',
+//     marker: 'v',
+//     wins: 0
+// }
 const player1 = playerFactory('', 'x');
 const player2 = playerFactory('', 'o');
 
@@ -62,7 +66,7 @@ const Gameboard = (() => {
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             if (box.textContent === '' && !outcomeUpdate[0].includes('player')) {
-                if (Controller.getTurn() === '1') {
+                if (Controller.getTurn() === `${player1.name}`) {
                     box.textContent = 'X';
                     board[box.id] = '1';
                 }
@@ -99,15 +103,19 @@ const Controller = (() => {
     let outcome = 'none';
     const getOutcome = () => outcome;
     //switch turns
-    let turn = '1';
+    let turn = '';
+    playerBtn.addEventListener('click', () => {
+        turn = player1.name;
+    })
     const getTurn = () => turn;
     const switchTurn = () => {
-        if (turn === '1') {
-            turn = '2';
+        if (turn === `${player1.name}`) {
+            turn = `${player2.name}`;
         }
-        else if (turn === '2') {
-            turn = '1';
+        else if (turn === `${player2.name}`) {
+            turn = `${player1.name}`;
         }
+        gameMessages.textContent = `${turn}, it's your turn!`
         turnCounter++;
     }
     gameBoxes.forEach(box => {
