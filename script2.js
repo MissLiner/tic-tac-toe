@@ -4,6 +4,7 @@ const playerForm = document.getElementById('player-form');
 const playerBtn = document.getElementById('player-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
+const playAgainBtn = document.getElementById('play-again-btn');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -31,7 +32,6 @@ const Gameboard = (() => {
     checkWin = (a, b, c) => {
         if (a && a === b && b === c) {
             outcomeUpdate[0] = `player${a}`;
-            return true;
         }
         else {
             outcomeUpdate[0] = 'draw';
@@ -64,9 +64,15 @@ const Gameboard = (() => {
         });
     });
     //clear board
+    clearBoard = () => {
+        for (i = 0; i < 9; i++) {
+            board[i] = '';
+        }
+    }
     //return stuff
     return {
         outcomeUpdate,
+        clearBoard
     }
 })()
 
@@ -93,15 +99,17 @@ const Controller = (() => {
         box.addEventListener('click', () => {
             outcome = Gameboard.outcomeUpdate[0];
             if (getOutcome() === 'draw' && getTurnCounter() === 8) {
-                gameMessages.textContent = 'It\'s a draw!';
-                outcome = 'finalDraw';
+                gameMessages.textContent = 'It\'s a draw! Play again?';
+                playAgainBtn.classList.remove('hidden');
             }
             else if (outcome.includes('player')) {
                 if (turn[0] === '1') {
-                    gameMessages.textContent = `${player1.name} wins!`;
+                    gameMessages.textContent = `${player1.name} wins! Play again?`;
+                    playAgainBtn.classList.remove('hidden');
                 }
                 else {
-                    gameMessages.textContent = `${player2.name} wins!`;
+                    gameMessages.textContent = `${player2.name} wins! Play again?`;
+                    playAgainBtn.classList.remove('hidden');
                 }
             }
             else {
@@ -117,6 +125,17 @@ const Controller = (() => {
     //change outcome on win or draw
     //ask if they want to play again or reset for new players
     //1. play again
+    playAgain = () => {
+        Gameboard.clearBoard();
+        gameBoxes.forEach(box => {
+            box.textContent = '';
+            outcome = '';
+        })
+        getTurn().wins++;
+    }
+    playAgainBtn.addEventListener('click', () => {
+        playAgain();
+    })
         //reset turn counter
         //increment player win
         //clear board array
