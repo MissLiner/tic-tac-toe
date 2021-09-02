@@ -5,6 +5,7 @@ const playerBtn = document.getElementById('player-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 const playAgainBtn = document.getElementById('play-again-btn');
+const clearBoardBtn = document.getElementById('clear-board-btn');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -83,7 +84,12 @@ const Gameboard = (() => {
         for (i = 0; i < 9; i++) {
             board[i] = '';
         }
+        gameBoxes.forEach(box => {
+            box.textContent = '';
+        })
     }
+
+
     //return stuff
     return {
         outcomeUpdate,
@@ -150,18 +156,26 @@ const Controller = (() => {
         });
     });
 
+    clearBoardBtn.addEventListener('click', () => {
+        if (turnCounter % 2 === 1) {
+            if (turn.includes('1')) {
+            turn = player2.name;
+            }
+            else { turn = player1.name; }
+        }
+        gameMessages.textContent = `${turn}, you start again`;
+        clearBoard();
+    })
+
     //ask if they want to play again or reset for new players
     //1. play again
     playAgain = () => {
         Gameboard.clearBoard();
-        gameBoxes.forEach(box => {
-            box.textContent = '';
-            Gameboard.outcomeUpdate[0] = 'start';
-            outcome = '';
-            turnCounter = 0;
-            playAgainBtn.classList.add('hidden');
-            gameMessages.textContent = `${turn}, you start, since you lost`
-        })
+        Gameboard.outcomeUpdate[0] = 'start';
+        outcome = '';
+        turnCounter = 0;
+        playAgainBtn.classList.add('hidden');
+        gameMessages.textContent = `${turn}, you start, since you lost`
         // getTurn().wins++;
     }
     playAgainBtn.addEventListener('click', () => {
