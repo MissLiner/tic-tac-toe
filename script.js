@@ -48,6 +48,28 @@ const Gameboard = (() => {
     }
 })()
 
+    // checkWin = (a, b, c) => {
+    //     if (a && a === b && b === c) {
+    //         outcomeUpdate[0] = `player${a}`;
+    //         return true;
+    //     }
+    //     else {
+    //         outcomeUpdate[0] = 'draw';
+    //     }
+    // }
+
+
+    // endGame = () => {
+    //     if (checkWin(board[0], board[1], board[2]) === true) { return };//row
+    //     if (checkWin(board[3], board[4], board[5]) === true) { return };//row
+    //     if (checkWin(board[6], board[7], board[8]) === true) { return };//row
+    //     if (checkWin(board[0], board[3], board[6]) === true) { return };//column
+    //     if (checkWin(board[1], board[4], board[7]) === true) { return };//column
+    //     if (checkWin(board[2], board[5], board[8]) === true) { return };//column
+    //     if (checkWin(board[0], board[4], board[8]) === true) { return };//diag
+    //     if (checkWin(board[2], board[4], board[6]) === true) { return };//diag
+    // }
+
 const gameController = (() => {
     let turn = 'player1';
     let outcome = 'none';

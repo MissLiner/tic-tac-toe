@@ -29,31 +29,32 @@ const Gameboard = (() => {
     const board = ['', '', '', '', '', '', '', '', ''];
     const outcomeUpdate = ['none'];
     //check for win or draw
-    // checkWin = (a, b, c) => {
-    //     if (a && a === b && b === c) {
-    //         outcomeUpdate[0] = `player${a}`;
-    //         return true;
-    //     }
-    //     else {
-    //         outcomeUpdate[0] = 'draw';
-    //     }
-    // }
-
-
-    // endGame = () => {
-    //     if (checkWin(board[0], board[1], board[2]) === true) { return };//row
-    //     if (checkWin(board[3], board[4], board[5]) === true) { return };//row
-    //     if (checkWin(board[6], board[7], board[8]) === true) { return };//row
-    //     if (checkWin(board[0], board[3], board[6]) === true) { return };//column
-    //     if (checkWin(board[1], board[4], board[7]) === true) { return };//column
-    //     if (checkWin(board[2], board[5], board[8]) === true) { return };//column
-    //     if (checkWin(board[0], board[4], board[8]) === true) { return };//diag
-    //     if (checkWin(board[2], board[4], board[6]) === true) { return };//diag
-    // }
+    const checkLines = () => {
+        let row = [];
+        let column = [];
+        let diag = [[0, 4, 8], [2, 4, 6]];
+    
+        for (i = 0; i < 3; i++) {
+            row.push([i * 3, i * 3 + 1, i * 3 +2]);
+        }
+        for (i = 0; i < 3; i++) {
+            column.push = [i, i + 3, i + 6]
+        }
+        checkEquality = (a, b, c) => {
+            if (Gameboard.board[a] && Gameboard.board[a] === Gameboard.board[b] && 
+                Gameboard.board[b] === Gameboard.board[c]) { return true };
+        }
+        checkLine = (array) => {
+            for (i = 0; i < array.length; i++) {
+                if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { return true };
+            }
+        }
+        if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { outcomeUpdate[0] = `player${Controller.turn}` };
+    }
     //update board on player move
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-             if (box.textContent === '' && !outcomeUpdate[0].includes('player')) {
+            if (box.textContent === '' && !outcomeUpdate[0].includes('player')) {
                 if (Controller.getTurn() === '1') {
                     box.textContent = 'X';
                     board[box.id] = '1';
@@ -62,8 +63,8 @@ const Gameboard = (() => {
                     box.textContent = 'O';
                     board[box.id] = '2';
                 };
+            checkLines();
             };
-            //checkLines();
         });
     });
     //clear board
@@ -75,39 +76,12 @@ const Gameboard = (() => {
     //return stuff
     return {
         outcomeUpdate,
-        //checkLines,
         clearBoard,
         board
     }
 })()
 
-const checkLines = () => {
-    let row = [];
-    let column = [];
-    let diag = [[0, 4, 8], [2, 4, 6]];
 
-    for (i = 0; i < 3; i++) {
-        row.push([i * 3, i * 3 + 1, i * 3 +2]);
-    }
-    for (i = 0; i < 3; i++) {
-        column.push = [i, i + 3, i + 6]
-    }
-    returnBoardValue = (x) => {
-        x = Gameboard.board[x];
-    }
-    checkEquality = (a, b, c) => {
-        // returnBoardValue(a);
-        // returnBoardValue(b);
-        // returnBoardValue(c);
-        if (Gameboard.board[a] && Gameboard.board[a] === Gameboard.board[b] && Gameboard.board[b] === Gameboard.board[c]) { return true };
-    }
-    checkLine = (array) => {
-        for (i = 0; i < array.length; i++) {
-            if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { return true };
-        }
-    }
-    if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { return true };
-}
 
 const Controller = (() => {
     //keep track of how many turns have been taken
