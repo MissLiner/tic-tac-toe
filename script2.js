@@ -49,7 +49,10 @@ const Gameboard = (() => {
                 if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { return true };
             }
         }
-        if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { outcomeUpdate[0] = `player${Controller.turn}` };
+        if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { 
+            outcomeUpdate[0] = `player${Controller.turn}` 
+        }
+        else { outcomeUpdate[0] = 'draw' }
     }
     //update board on player move
     gameBoxes.forEach(box => {
