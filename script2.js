@@ -82,33 +82,31 @@ const Gameboard = (() => {
 })()
 
 const checkLines = () => {
-    console.log('hi');
     let row = [];
     let column = [];
     let diag = [[0, 4, 8], [2, 4, 6]];
 
     for (i = 0; i < 3; i++) {
-        row[i] = [i * 3, i * 3 + 1, i * 3 +2];
-        
+        row.push([i * 3, i * 3 + 1, i * 3 +2]);
     }
     for (i = 0; i < 3; i++) {
-        column[i] = [i, i + 3, i + 6]
+        column.push = [i, i + 3, i + 6]
     }
     returnBoardValue = (x) => {
         x = Gameboard.board[x];
     }
     checkEquality = (a, b, c) => {
-        returnBoardValue.apply(a, b, c);
-        if (a && a === b && b === c) { return true };
+        // returnBoardValue(a);
+        // returnBoardValue(b);
+        // returnBoardValue(c);
+        if (Gameboard.board[a] && Gameboard.board[a] === Gameboard.board[b] && Gameboard.board[b] === Gameboard.board[c]) { return true };
     }
-    const checkLine = (array) => {
-        for (i = array.length; i > 0; i--) {
+    checkLine = (array) => {
+        for (i = 0; i < array.length; i++) {
             if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { return true };
         }
     }
-    checkLine(row);
-    checkLine(column);
-    checkLine(diag);
+    if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { return true };
 }
 
 const Controller = (() => {
