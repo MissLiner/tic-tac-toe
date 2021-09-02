@@ -82,7 +82,6 @@ const Gameboard = (() => {
     clearBoard = () => {
         for (i = 0; i < 9; i++) {
             board[i] = '';
-            gameMessages.textContent = '';
         }
     }
     //return stuff
@@ -128,12 +127,19 @@ const Controller = (() => {
             }
             else if (outcome.includes('player')) {
                 if (turn === player1.name) {
-                    gameMessages.textContent = `${player1.name} wins! Play again?`;
+                    player1.wins++;
+                    gameMessages.textContent = `${player1.name} wins! 
+                    You've won ${player1.wins}, and ${player2.name} has won ${player2.wins}. 
+                    Play again?`;
                     playAgainBtn.classList.remove('hidden');
+                    
                     turn = player2.name;
                 }
                 else {
-                    gameMessages.textContent = `${player2.name} wins! Play again?`;
+                    player2.wins++;
+                    gameMessages.textContent = `${player2.name} wins! 
+                    You've won ${player2.wins}, and ${player1.name} has won ${player1.wins}. 
+                    Play again?`;
                     playAgainBtn.classList.remove('hidden');
                     turn = player1.name;
                 }
@@ -144,11 +150,6 @@ const Controller = (() => {
         });
     });
 
-    //create players
-
-        //assign player marker  
-        //use playerFactory
-    //change outcome on win or draw
     //ask if they want to play again or reset for new players
     //1. play again
     playAgain = () => {
