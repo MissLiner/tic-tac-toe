@@ -50,7 +50,7 @@ const Gameboard = (() => {
     //update board on player move
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-             if (box.textContent === '') {
+             if (box.textContent === '' && !outcomeUpdate[0].includes('player')) {
                 if (Controller.getTurn() === '1') {
                     box.textContent = 'X';
                     board[box.id] = '1';
@@ -94,6 +94,7 @@ const Controller = (() => {
             outcome = Gameboard.outcomeUpdate[0];
             if (getOutcome() === 'draw' && getTurnCounter() === 8) {
                 gameMessages.textContent = 'It\'s a draw!';
+                outcome = 'finalDraw';
             }
             else if (outcome.includes('player')) {
                 if (turn[0] === '1') {
