@@ -51,7 +51,7 @@ const Gameboard = (() => {
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
              if (box.textContent === '') {
-                if (Controller.turn[0] === '1') {
+                if (Controller.getTurn() === '1') {
                     box.textContent = 'X';
                     board[box.id] = '1';
                 }
@@ -72,26 +72,32 @@ const Gameboard = (() => {
 
 const Controller = (() => {
     //keep track of how many turns have been taken
-    const turnCounter = [0];
+    let turnCounter = 0;
+    const getTurnCounter = () => turnCounter;
     //update game status
-    const outcome = ['none'];
+    let outcome = 'none';
+    const getOutcome = () => outcome;
     //switch turns
-    const turn = ['1'];
-    switchTurn = () => {
-        if (turn[0] === '1') {
-            turn[0] = '2';
+    let turn = '1';
+    const getTurn = () => turn;
+    const switchTurn = () => {
+        if (turn === '1') {
+            turn = '2';
         }
-        else if (turn[0] === '2') {
-            turn[0] = '1';
+        else if (turn === '2') {
+            turn = '1';
         }
-        turnCounter[0] = turnCounter[0]+1;
+        turnCounter++;
     }
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-            outcome[0] = Gameboard.outcomeUpdate[0];
-            if (outcome[0].includes('player')) {
+            outcome = Gameboard.outcomeUpdate[0];
+            if (getOutcome() === 'draw' && getTurnCounter() === 8) {
+                gameMessages.textContent = 'It\'s a draw!';
+            }
+            else if (outcome.includes('player')) {
                 gameMessages.classList.remove('hidden');
-                if (turn[0] = '1') {
+                if (turn[0] === '1') {
                     gameMessages.textContent = `${player1.name} wins!`;
                 }
                 else {
@@ -103,9 +109,10 @@ const Controller = (() => {
             }
         });
     });
+
     //create players
 
-        //assign player marker
+        //assign player marker  
         //use playerFactory
     //change outcome on win or draw
     //ask if they want to play again or reset for new players
@@ -123,8 +130,9 @@ const Controller = (() => {
     //return stuff
     return {
         outcome,
-        turn,
-        turnCounter,
+        getTurn,
+        getTurnCounter,
+        getOutcome
     }
 
 })()
