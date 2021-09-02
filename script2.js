@@ -5,6 +5,7 @@ const playerBtn = document.getElementById('player-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 const playAgainBtn = document.getElementById('play-again-btn');
+const playerForm = document.getElementById('player-form');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -21,8 +22,9 @@ playerBtn.addEventListener('click', () => {
     player2.name = playerInput2.value;
     playerInput1.value = '';
     playerInput2.value = '';
+    playerForm.classList.add('hidden');
+    gameMessages.textContent = `${player1.name}, you start!`
 })
-
 
 const Gameboard = (() => {
     //hold board piece position info
