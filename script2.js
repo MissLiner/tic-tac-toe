@@ -103,6 +103,7 @@ const Controller = (() => {
     let outcome = 'none';
     const getOutcome = () => outcome;
     //switch turns
+    const loser = [''];
     let turn = '';
     playerBtn.addEventListener('click', () => {
         turn = player1.name;
@@ -126,13 +127,15 @@ const Controller = (() => {
                 playAgainBtn.classList.remove('hidden');
             }
             else if (outcome.includes('player')) {
-                if (turn[0] === '1') {
+                if (turn === player1.name) {
                     gameMessages.textContent = `${player1.name} wins! Play again?`;
                     playAgainBtn.classList.remove('hidden');
+                    turn = player2.name;
                 }
                 else {
                     gameMessages.textContent = `${player2.name} wins! Play again?`;
                     playAgainBtn.classList.remove('hidden');
+                    turn = player1.name;
                 }
             }
             else {
@@ -156,6 +159,7 @@ const Controller = (() => {
             outcome = '';
             turnCounter = 0;
             playAgainBtn.classList.add('hidden');
+            gameMessages.textContent = `${turn}, you start, since you lost`
         })
         // getTurn().wins++;
     }
