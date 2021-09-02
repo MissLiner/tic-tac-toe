@@ -157,14 +157,16 @@ const Controller = (() => {
     });
 
     clearBoardBtn.addEventListener('click', () => {
-        if (turnCounter % 2 === 1) {
-            if (turn.includes('1')) {
-            turn = player2.name;
+        if (outcome === '' || outcome === 'draw') {
+            if (turnCounter % 2 === 1) {
+                if (turn.includes('1')) {
+                turn = player2.name;
+                }
+                else { turn = player1.name; }
             }
-            else { turn = player1.name; }
+            gameMessages.textContent = `${turn}, you start again`;
+            clearBoard();
         }
-        gameMessages.textContent = `${turn}, you start again`;
-        clearBoard();
     })
 
     //ask if they want to play again or reset for new players
