@@ -96,7 +96,6 @@ const Controller = (() => {
                 gameMessages.textContent = 'It\'s a draw!';
             }
             else if (outcome.includes('player')) {
-                gameMessages.classList.remove('hidden');
                 if (turn[0] === '1') {
                     gameMessages.textContent = `${player1.name} wins!`;
                 }
