@@ -32,6 +32,7 @@ const Gameboard = (() => {
     checkWin = (a, b, c) => {
         if (a && a === b && b === c) {
             outcomeUpdate[0] = `player${a}`;
+            return true;
         }
         else {
             outcomeUpdate[0] = 'draw';
@@ -72,7 +73,8 @@ const Gameboard = (() => {
     //return stuff
     return {
         outcomeUpdate,
-        clearBoard
+        clearBoard,
+        board
     }
 })()
 
@@ -129,9 +131,11 @@ const Controller = (() => {
         Gameboard.clearBoard();
         gameBoxes.forEach(box => {
             box.textContent = '';
+            Gameboard.outcomeUpdate[0] = 'start';
             outcome = '';
+            turnCounter = 0;
         })
-        getTurn().wins++;
+        // getTurn().wins++;
     }
     playAgainBtn.addEventListener('click', () => {
         playAgain();
