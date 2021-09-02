@@ -76,6 +76,7 @@ const Gameboard = (() => {
     clearBoard = () => {
         for (i = 0; i < 9; i++) {
             board[i] = '';
+            gameMessages.textContent = '';
         }
     }
     //return stuff
@@ -144,6 +145,7 @@ const Controller = (() => {
             Gameboard.outcomeUpdate[0] = 'start';
             outcome = '';
             turnCounter = 0;
+            playAgainBtn.classList.add('hidden');
         })
         // getTurn().wins++;
     }
