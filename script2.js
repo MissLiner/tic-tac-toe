@@ -30,15 +30,15 @@ const Gameboard = (() => {
     const outcomeUpdate = ['none'];
     //check for win or draw
     const checkLines = () => {
-        let row = [];
-        let column = [];
-        let diag = [[0, 4, 8], [2, 4, 6]];
+        const row = [];
+        const column = [];
+        const diag = [[0, 4, 8], [2, 4, 6]];
     
         for (i = 0; i < 3; i++) {
             row.push([i * 3, i * 3 + 1, i * 3 +2]);
         }
         for (i = 0; i < 3; i++) {
-            column.push = [i, i + 3, i + 6]
+            column.push([i, i + 3, i + 6]);
         }
         checkEquality = (a, b, c) => {
             if (Gameboard.board[a] && Gameboard.board[a] === Gameboard.board[b] && 
@@ -46,7 +46,9 @@ const Gameboard = (() => {
         }
         checkLine = (array) => {
             for (i = 0; i < array.length; i++) {
-                if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { return true };
+                if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { 
+                    console.log(array);
+                    return true };
             }
         }
         if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { 
