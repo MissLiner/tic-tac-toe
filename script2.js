@@ -6,6 +6,7 @@ const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 const playAgainBtn = document.getElementById('play-again-btn');
 const clearBoardBtn = document.getElementById('clear-board-btn');
+const newPlayersBtn = document.getElementById('new-players-btn');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -122,6 +123,7 @@ const Controller = (() => {
             if (getOutcome() === 'draw' && getTurnCounter() === 8) {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 playAgainBtn.classList.remove('hidden');
+                newPlayersBtn.classList.remove('hidden');
             }
             else if (outcome.includes('player')) {
                 if (turn === player1.name) {
@@ -169,12 +171,18 @@ const Controller = (() => {
         outcome = '';
         turnCounter = 0;
         playAgainBtn.classList.add('hidden');
+        newPlayersBtn.classList.add('hidden');
         gameMessages.textContent = `${turn}, you start, since you lost`
         // getTurn().wins++;
     }
     playAgainBtn.addEventListener('click', () => {
         playAgain();
     })
+
+    newPlayersBtn.addEventListener('click', () => {
+        resetPlayers();
+    }
+    )
         //reset turn counter
         //increment player win
         //clear board array
