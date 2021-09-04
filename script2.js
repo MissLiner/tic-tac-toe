@@ -84,7 +84,6 @@ const Gameboard = (() => {
         })
     }
 
-
     //return stuff
     return {
         outcomeUpdate,
@@ -92,8 +91,6 @@ const Gameboard = (() => {
         board
     }
 })()
-
-
 
 const Controller = (() => {
     //keep track of how many turns have been taken
