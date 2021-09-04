@@ -1,7 +1,7 @@
 const gameBoxes = document.querySelectorAll('.game-box');
 const gameMessages = document.getElementById('game-messages');
 const playerForm = document.getElementById('player-form');
-const playerBtn = document.getElementById('player-btn');
+const startBtn = document.getElementById('start-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
 const playAgainBtn = document.getElementById('play-again-btn');
@@ -14,15 +14,10 @@ const playerFactory = (name, marker) => {
     return {name, marker, wins};
 };
 
-// const player1 = {
-//     name: 'Carol',
-//     marker: 'v',
-//     wins: 0
-// }
 const player1 = playerFactory('', 'x');
 const player2 = playerFactory('', 'o');
 
-playerBtn.addEventListener('click', () => {
+startBtn.addEventListener('click', () => {
     player1.name = playerInput1.value;
     player2.name = playerInput2.value;
     playerInput1.value = '';
@@ -110,7 +105,7 @@ const Controller = (() => {
     //switch turns
     const loser = [''];
     let turn = '';
-    playerBtn.addEventListener('click', () => {
+    startBtn.addEventListener('click', () => {
         turn = player1.name;
     })
     const getTurn = () => turn;
