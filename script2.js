@@ -132,6 +132,7 @@ const Controller = (() => {
                     You've won ${player1.wins}, and ${player2.name} has won ${player2.wins}. 
                     Play again?`;
                     playAgainBtn.classList.remove('hidden');
+                    newPlayersBtn.classList.remove('hidden');
                     
                     turn = player2.name;
                 }
@@ -178,6 +179,14 @@ const Controller = (() => {
     playAgainBtn.addEventListener('click', () => {
         playAgain();
     })
+
+    resetPlayers = () => {
+        playAgain();
+        gameMessages.textContent = ``;
+        playerForm.classList.remove('hidden');
+        player1.wins = 0;
+        player2.wins = 0;
+    }
 
     newPlayersBtn.addEventListener('click', () => {
         resetPlayers();
