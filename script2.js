@@ -95,6 +95,7 @@ const Gameboard = (() => {
 
 const Controller = (() => {
     //keep track of how many turns have been taken
+    gameMessages.textContent = 'Who wants to play?'
     let turnCounter = 0;
     const getTurnCounter = () => turnCounter;
     //update game status
@@ -163,9 +164,6 @@ const Controller = (() => {
             clearBoard();
         }
     })
-
-    //ask if they want to play again or reset for new players
-    //1. play again
     playAgain = () => {
         Gameboard.clearBoard();
         Gameboard.outcomeUpdate[0] = 'start';
@@ -211,3 +209,5 @@ const Controller = (() => {
     }
 
 })()
+
+//NEXT STEP ADD DRAW LOG
