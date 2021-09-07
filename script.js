@@ -15,8 +15,8 @@ const playerFactory = (name, marker) => {
     return {name, marker, wins};
 };
 
-const player1 = playerFactory('', 'x');
-const player2 = playerFactory('', 'o');
+const player1 = playerFactory('', 'X');
+const player2 = playerFactory('', 'O');
 
 startBtn.addEventListener('click', () => {
     player1.name = playerInput1.value;
@@ -65,17 +65,14 @@ const Gameboard = (() => {
     }
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-            if (newOutcome === 'won' || newOutcome === 'draw') { 
-                newOutcome = 'gameover';
-            }
-            else if (newOutcome === 'start' || newOutcome === 'playing') {
-                if (box.textContent === '' && !newOutcome.includes('player')) {
+            if (newOutcome === 'start' || newOutcome === 'playing') {
+                if (box.textContent === '') {
                     if (Controller.getTurn() === `${player1.name}`) {
-                        box.textContent = 'X';
+                        box.textContent = player1.marker;
                         board[box.id] = '1';
                     }
                     else {
-                        box.textContent = 'O';
+                        box.textContent = player2.marker;
                         board[box.id] = '2';
                     };
                 checkLines();
@@ -100,12 +97,12 @@ const Gameboard = (() => {
 
 const Controller = (() => {
     gameMessages.textContent = 'Who wants to play?'
+    let turn = '';
+    const getTurn = () => turn;
     let turnCounter = 0;
     const getTurnCounter = () => turnCounter;
     let outcome = 'start';
-    const getOutcome = () => outcome;
-    let turn = '';
-    const getTurn = () => turn;
+    let draws = 0;
 
     startBtn.addEventListener('click', () => {
         turn = player1.name;
@@ -124,7 +121,8 @@ const Controller = (() => {
     const winGame = (winner, loser) => {
         winner.wins++;
         gameMessages.textContent = `${winner.name} wins! 
-            You've won ${winner.wins}, and ${loser.name} has won ${loser.wins}. 
+            SCORE: 
+            ${player1.name} - ${player1.wins}, ${player1.name} - ${player1.wins}, Draws - ${draws} 
             Play again?`;
         playAgainBtn.classList.remove('hidden');
         newPlayersBtn.classList.remove('hidden');
@@ -146,10 +144,10 @@ const Controller = (() => {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 playAgainBtn.classList.remove('hidden');
                 newPlayersBtn.classList.remove('hidden');
+                draws++;
             }
-            else if (outcome === 'gameover') { return }
-            else {
-            switchTurn();
+            else if (outcome === 'playing') {
+                switchTurn();
             }
         });
     });
@@ -166,15 +164,14 @@ const Controller = (() => {
             clearBoard();
         }
     })
+
     playAgain = () => {
         Gameboard.clearBoard();
-        // Gameboard.getNewOutcome() = 'start';
         outcome = 'start';
         turnCounter = 0;
         playAgainBtn.classList.add('hidden');
         newPlayersBtn.classList.add('hidden');
         gameMessages.textContent = `${turn}, you start, since you lost`
-        // getTurn().wins++;
     }
     playAgainBtn.addEventListener('click', () => {
         playAgain();
@@ -186,28 +183,16 @@ const Controller = (() => {
         playerForm.classList.remove('hidden');
         player1.wins = 0;
         player2.wins = 0;
+        draws = 0;
     }
-
     newPlayersBtn.addEventListener('click', () => {
         resetPlayers();
     }
     )
-        //reset turn counter
-        //increment player win
-        //clear board array
-        //clear board display
-    //reset for new players
-        //reset turn counter
-        //clear player info
-        //clear board array
-        //clear board display
-        //create players
-    //return stuff
+
     return {
-        outcome,
         getTurn,
         getTurnCounter,
-        getOutcome
     }
 
 })()
