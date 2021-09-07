@@ -107,7 +107,6 @@ const Controller = (() => {
     let outcome = 'start';
     const getOutcome = () => outcome;
     //switch turns
-    const loser = [''];
     let turn = '';
     startBtn.addEventListener('click', () => {
         turn = player1.name;
@@ -123,6 +122,15 @@ const Controller = (() => {
         gameMessages.textContent = `${turn}, it's your turn!`
         turnCounter++;
     }
+    const winGame = (winner, loser) => {
+        winner.wins++;
+        gameMessages.textContent = `${winner.name} wins! 
+            You've won ${winner.wins}, and ${loser.name} has won ${loser.wins}. 
+            Play again?`;
+        playAgainBtn.classList.remove('hidden');
+        newPlayersBtn.classList.remove('hidden');
+        turn = loser.name;
+    }
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             outcome = Gameboard.outcomeUpdate[0];
@@ -134,27 +142,13 @@ const Controller = (() => {
             }
             else if (outcome === 'won') {
                 if (turn === player1.name) {
-                    player1.wins++;
-                    // Gameboard.outcomeUpdate[0] = 'gameover';
-                    gameMessages.textContent = `${player1.name} wins! 
-                    You've won ${player1.wins}, and ${player2.name} has won ${player2.wins}. 
-                    Play again?`;
-                    playAgainBtn.classList.remove('hidden');
-                    newPlayersBtn.classList.remove('hidden');
-                    
-                    turn = player2.name;
+                    winGame(player1, player2);
                 }
                 else {
-                    player2.wins++;
-                    // Gameboard.outcomeUpdate[0] = 'gameover';
-                    gameMessages.textContent = `${player2.name} wins! 
-                    You've won ${player2.wins}, and ${player1.name} has won ${player1.wins}. 
-                    Play again?`;
-                    playAgainBtn.classList.remove('hidden');
-                    turn = player1.name;
+                    winGame(player2, player1);
                 }
             }
-            else if (outcome === 'won' || outcome === 'draw' || outcome === 'gameover') { return; }
+            else if (outcome === 'won' || outcome === 'draw' || outcome === 'gameover') { return }
             else {
             switchTurn();
             }
