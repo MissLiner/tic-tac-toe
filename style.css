@@ -2,10 +2,10 @@
     color:#24245E;
     font-family: helvetica, arial, sans-serif;
     text-align: center;
-    
 }
 
 h1 {
+    color:#381874;
     font-size: 28px;
     margin-bottom: 20px;
 }
@@ -17,9 +17,12 @@ body {
 }
 
 button {
-    background-color: #381874;
-    border-radius: 5px;
-    color:#E8E5FC;
+    background-color: #482a80;
+    border: outset;
+    border-color: #51515f;
+    border-radius: 6px;
+    color:#CAC7FE;
+    font-size: 19px;
     margin-bottom: 10px;
     margin-top: 10px;
     margin-left: auto;
@@ -29,6 +32,8 @@ button {
 
 input {
     background-color: #E8E5FC;
+    border: inset;
+    border-radius: 6px;
 }
 
 #gameboard {
@@ -53,14 +58,14 @@ input {
 #game-messages {
     color: #E8E5FC;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 20px;
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
 }
 
 #player-form {
-    font-size: 16px;
+    font-size: 18px;
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: auto;
