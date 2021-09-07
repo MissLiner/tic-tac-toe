@@ -28,12 +28,10 @@ startBtn.addEventListener('click', () => {
 })
 
 const Gameboard = (() => {
-    //hold board piece position info
     const board = ['', '', '', '', '', '', '', '', ''];
     let newOutcome = 'start';
     const getNewOutcome = () => newOutcome;
 
-    //check for win or draw
     const checkLines = () => {
         const row = [];
         const column = [];
@@ -61,14 +59,10 @@ const Gameboard = (() => {
         }
 
         else if (newOutcome === 'playing' && Controller.getTurnCounter() === 8) {
-            // gameMessages.textContent = 'It\'s a draw! Play again?';
             newOutcome = 'draw';
-            // playAgainBtn.classList.remove('hidden');
-            // newPlayersBtn.classList.remove('hidden');
         }
         else { newOutcome = 'playing' }
     }
-    //update board on player move
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             if (newOutcome === 'won' || newOutcome === 'draw') { 
@@ -105,19 +99,18 @@ const Gameboard = (() => {
 })()
 
 const Controller = (() => {
-    //keep track of how many turns have been taken
     gameMessages.textContent = 'Who wants to play?'
     let turnCounter = 0;
     const getTurnCounter = () => turnCounter;
-    //update game status
     let outcome = 'start';
     const getOutcome = () => outcome;
-    //switch turns
     let turn = '';
+    const getTurn = () => turn;
+
     startBtn.addEventListener('click', () => {
         turn = player1.name;
     })
-    const getTurn = () => turn;
+    
     const switchTurn = () => {
         if (turn === `${player1.name}`) {
             turn = `${player2.name}`;
@@ -137,15 +130,10 @@ const Controller = (() => {
         newPlayersBtn.classList.remove('hidden');
         turn = loser.name;
     }
+
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             outcome = Gameboard.getNewOutcome();
-            // if (getOutcome() === 'playing' && getTurnCounter() === 8) {
-            //     gameMessages.textContent = 'It\'s a draw! Play again?';
-            //     Gameboard.getNewOutcome() = 'draw';
-            //     playAgainBtn.classList.remove('hidden');
-            //     newPlayersBtn.classList.remove('hidden');
-            // }
             if (outcome === 'won') {
                 if (turn === player1.name) {
                     winGame(player1, player2);
