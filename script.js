@@ -30,7 +30,7 @@ startBtn.addEventListener('click', () => {
 const Gameboard = (() => {
     //hold board piece position info
     const board = ['', '', '', '', '', '', '', '', ''];
-    const outcomeUpdate = ['start'];
+    let outcomeUpdate = 'start';
     //check for win or draw
     const checkLines = () => {
         const row = [];
@@ -44,8 +44,8 @@ const Gameboard = (() => {
             column.push([i, i + 3, i + 6]);
         }
         checkEquality = (a, b, c) => {
-            if (Gameboard.board[a] && Gameboard.board[a] === Gameboard.board[b] && 
-                Gameboard.board[b] === Gameboard.board[c]) { return true };
+            if (board[a] && board[a] === board[b] && 
+                board[b] === board[c]) { return true };
         }
         checkLine = (array) => {
             for (i = 0; i < array.length; i++) {
@@ -94,7 +94,6 @@ const Gameboard = (() => {
     return {
         outcomeUpdate,
         clearBoard,
-        board
     }
 })()
 
