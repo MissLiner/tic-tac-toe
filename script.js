@@ -187,7 +187,7 @@ const Controller = (() => {
 
     resetPlayers = () => {
         playAgain();
-        gameMessages.textContent = ``;
+        gameMessages.textContent = 'Who wants to play?'
         playerForm.classList.remove('hidden');
         document.getElementById('scoreboard1').textContent = '';
         document.getElementById('scoreboard2').textContent = '';
