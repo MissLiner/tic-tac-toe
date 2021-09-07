@@ -4,10 +4,9 @@ const playerForm = document.getElementById('player-form');
 const startBtn = document.getElementById('start-btn');
 const playerInput1 = document.getElementById('player-input-1');
 const playerInput2 = document.getElementById('player-input-2');
-const playAgainBtn = document.getElementById('play-again-btn');
 const clearBoardBtn = document.getElementById('clear-board-btn');
+const playAgainBtn = document.getElementById('play-again-btn');
 const newPlayersBtn = document.getElementById('new-players-btn');
-const scoreboard = document.getElementById('scoreboard');
 const endDisplay = document.getElementById('end-display');
 
 const playerFactory = (name, marker) => {
@@ -56,6 +55,7 @@ const Gameboard = (() => {
                     return true };
             }
         }
+
         if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { 
             newOutcome = `won` 
         }
@@ -67,7 +67,11 @@ const Gameboard = (() => {
     }
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-            if (newOutcome === 'start' || newOutcome === 'playing') {
+            if (newOutcome === 'won' || newOutcome === 'draw') {
+                newOutcome = 'gameover';
+            }
+
+            else if (newOutcome === 'start' || newOutcome === 'playing') {
                 if (box.textContent === '') {
                     if (Controller.getTurn() === `${player1.name}`) {
                         box.textContent = player1.marker;
@@ -104,6 +108,7 @@ const Controller = (() => {
     let turnCounter = 0;
     const getTurnCounter = () => turnCounter;
     let outcome = 'start';
+    const getOutcome = () => outcome;
     let drawCounter = 0;
 
     startBtn.addEventListener('click', () => {
@@ -146,9 +151,6 @@ const Controller = (() => {
             else if (outcome === 'draw') {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 endDisplay.classList.remove('hidden');
-                // scoreboard.classList.remove('hidden')
-                // playAgainBtn.classList.remove('hidden');
-                // newPlayersBtn.classList.remove('hidden');
                 drawCounter++;
             }
             else if (outcome === 'playing') {
@@ -200,6 +202,7 @@ const Controller = (() => {
     return {
         getTurn,
         getTurnCounter,
+        getOutcome
     }
 
 })()
