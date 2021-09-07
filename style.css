@@ -1,6 +1,6 @@
 * {
+    color:#24245E;
     font-family: helvetica, arial, sans-serif;
-    font-size: 20px;    
     text-align: center;
     
 }
@@ -10,7 +10,16 @@ h1 {
     margin-bottom: 20px;
 }
 
+body {
+    background-color: #7979BC;
+    background-image:url(files/ttt_stars_background.svg);
+    background-repeat: no-repeat;
+}
+
 button {
+    background-color: #381874;
+    border-radius: 5px;
+    color:#E8E5FC;
     margin-bottom: 10px;
     margin-top: 10px;
     margin-left: auto;
@@ -18,8 +27,13 @@ button {
     width: 100px;
 }
 
+input {
+    background-color: #E8E5FC;
+}
+
 #gameboard {
     border:solid;
+    border-color: #24245E;
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -29,13 +43,15 @@ button {
 }
 
 .game-box {
+    background-color: #CAC7FE;
     border: solid;
+    border-color: #24245E;
     font-size: 100px;
     text-align: center;
 }
 
 #game-messages {
-    color: rgb(4, 110, 87);
+    color: #E8E5FC;
     font-weight: bold;
     font-size: 24px;
     margin-bottom: 10px;
@@ -44,15 +60,29 @@ button {
 }
 
 #player-form {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    font-size: 16px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    margin: auto;
+    width: 50%;
+    grid-template-areas:
+        "input input"
+        "button button";
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; */
+}
+
+.congrats {
+    font-size: 30px;
 }
 
 .hidden {
     display:none
 }
 
-.congrats {
-    font-size: 30px;
+#start-btn {
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
