@@ -7,6 +7,8 @@ const playerInput2 = document.getElementById('player-input-2');
 const playAgainBtn = document.getElementById('play-again-btn');
 const clearBoardBtn = document.getElementById('clear-board-btn');
 const newPlayersBtn = document.getElementById('new-players-btn');
+const scoreboard = document.getElementById('scoreboard');
+const endDisplay = document.getElementById('end-display');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -102,7 +104,7 @@ const Controller = (() => {
     let turnCounter = 0;
     const getTurnCounter = () => turnCounter;
     let outcome = 'start';
-    let draws = 0;
+    let drawCounter = 0;
 
     startBtn.addEventListener('click', () => {
         turn = player1.name;
@@ -120,12 +122,13 @@ const Controller = (() => {
     }
     const winGame = (winner, loser) => {
         winner.wins++;
-        gameMessages.textContent = `${winner.name} wins! 
-            SCORE: 
-            ${player1.name} - ${player1.wins}, ${player1.name} - ${player1.wins}, Draws - ${draws} 
-            Play again?`;
-        playAgainBtn.classList.remove('hidden');
-        newPlayersBtn.classList.remove('hidden');
+        gameMessages.textContent = `${winner.name} wins! Play again?`
+        document.getElementById('scoreboard1').textContent = `${player1.name}: ${player1.wins}`;
+        document.getElementById('scoreboard2').textContent = `${player2.name}: ${player2.wins}`;
+        document.getElementById('scoreboard3').textContent = `Draws:${drawCounter}`;
+        endDisplay.classList.remove('hidden');
+        // playAgainBtn.classList.remove('hidden');
+        // newPlayersBtn.classList.remove('hidden');
         turn = loser.name;
     }
 
@@ -142,9 +145,11 @@ const Controller = (() => {
             }
             else if (outcome === 'draw') {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
-                playAgainBtn.classList.remove('hidden');
-                newPlayersBtn.classList.remove('hidden');
-                draws++;
+                endDisplay.classList.remove('hidden');
+                // scoreboard.classList.remove('hidden')
+                // playAgainBtn.classList.remove('hidden');
+                // newPlayersBtn.classList.remove('hidden');
+                drawCounter++;
             }
             else if (outcome === 'playing') {
                 switchTurn();
@@ -169,8 +174,10 @@ const Controller = (() => {
         Gameboard.clearBoard();
         outcome = 'start';
         turnCounter = 0;
-        playAgainBtn.classList.add('hidden');
-        newPlayersBtn.classList.add('hidden');
+        endDisplay.classList.add('hidden');
+        // scoreboard.classList.add('hidden');
+        // playAgainBtn.classList.add('hidden');
+        // newPlayersBtn.classList.add('hidden');
         gameMessages.textContent = `${turn}, you start, since you lost`
     }
     playAgainBtn.addEventListener('click', () => {
@@ -183,7 +190,7 @@ const Controller = (() => {
         playerForm.classList.remove('hidden');
         player1.wins = 0;
         player2.wins = 0;
-        draws = 0;
+        drawCounter = 0;
     }
     newPlayersBtn.addEventListener('click', () => {
         resetPlayers();
