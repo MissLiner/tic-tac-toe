@@ -125,15 +125,16 @@ const Controller = (() => {
         gameMessages.textContent = `${turn}, it's your turn!`
         turnCounter++;
     }
-    const winGame = (winner, loser) => {
-        winner.wins++;
-        gameMessages.textContent = `${winner.name} wins! Play again?`
+    const updateScoreboard = () => {
         document.getElementById('scoreboard1').textContent = `${player1.name}: ${player1.wins}`;
         document.getElementById('scoreboard2').textContent = `${player2.name}: ${player2.wins}`;
         document.getElementById('scoreboard3').textContent = `Draws:${drawCounter}`;
+    }
+    const winGame = (winner, loser) => {
+        winner.wins++;
+        gameMessages.textContent = `${winner.name} wins! Play again?`
+        updateScoreboard();
         endDisplay.classList.remove('hidden');
-        // playAgainBtn.classList.remove('hidden');
-        // newPlayersBtn.classList.remove('hidden');
         turn = loser.name;
     }
 
@@ -149,9 +150,10 @@ const Controller = (() => {
                 }
             }
             else if (outcome === 'draw') {
-                gameMessages.textContent = 'It\'s a draw! Play again?';
-                endDisplay.classList.remove('hidden');
                 drawCounter++;
+                gameMessages.textContent = 'It\'s a draw! Play again?';
+                updateScoreboard();
+                endDisplay.classList.remove('hidden');
             }
             else if (outcome === 'playing') {
                 switchTurn();
@@ -177,9 +179,6 @@ const Controller = (() => {
         outcome = 'start';
         turnCounter = 0;
         endDisplay.classList.add('hidden');
-        // scoreboard.classList.add('hidden');
-        // playAgainBtn.classList.add('hidden');
-        // newPlayersBtn.classList.add('hidden');
         gameMessages.textContent = `${turn}, you start, since you lost`
     }
     playAgainBtn.addEventListener('click', () => {
@@ -206,5 +205,3 @@ const Controller = (() => {
     }
 
 })()
-
-//NEXT STEP ADD DRAW LOG
