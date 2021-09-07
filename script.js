@@ -30,7 +30,7 @@ startBtn.addEventListener('click', () => {
 const Gameboard = (() => {
     //hold board piece position info
     const board = ['', '', '', '', '', '', '', '', ''];
-    const outcomeUpdate = ['none'];
+    const outcomeUpdate = ['start'];
     //check for win or draw
     const checkLines = () => {
         const row = [];
@@ -55,13 +55,17 @@ const Gameboard = (() => {
             }
         }
         if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { 
-            outcomeUpdate[0] = `player${Controller.turn}` 
+            outcomeUpdate[0] = `won` 
         }
-        else { outcomeUpdate[0] = 'draw' }
+        else { outcomeUpdate[0] = 'playing' }
     }
     //update board on player move
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
+            if (outcomeUpdate[0] === 'won') { 
+                outcomeUpdate[0] = 'gameover';
+            }
+            else if (outcomeUpdate[0] === 'start' || outcomeUpdate[0] === 'playing') {
             if (box.textContent === '' && !outcomeUpdate[0].includes('player')) {
                 if (Controller.getTurn() === `${player1.name}`) {
                     box.textContent = 'X';
@@ -73,6 +77,7 @@ const Gameboard = (() => {
                 };
             checkLines();
             };
+            }
         });
     });
     //clear board
@@ -99,7 +104,7 @@ const Controller = (() => {
     let turnCounter = 0;
     const getTurnCounter = () => turnCounter;
     //update game status
-    let outcome = 'none';
+    let outcome = 'start';
     const getOutcome = () => outcome;
     //switch turns
     const loser = [''];
@@ -121,14 +126,16 @@ const Controller = (() => {
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             outcome = Gameboard.outcomeUpdate[0];
-            if (getOutcome() === 'draw' && getTurnCounter() === 8) {
+            if (getOutcome() === 'playing' && getTurnCounter() === 8) {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
+                Gameboard.outcomeUpdate[0] = 'draw';
                 playAgainBtn.classList.remove('hidden');
                 newPlayersBtn.classList.remove('hidden');
             }
-            else if (outcome.includes('player')) {
+            else if (outcome === 'won') {
                 if (turn === player1.name) {
                     player1.wins++;
+                    // Gameboard.outcomeUpdate[0] = 'gameover';
                     gameMessages.textContent = `${player1.name} wins! 
                     You've won ${player1.wins}, and ${player2.name} has won ${player2.wins}. 
                     Play again?`;
@@ -139,6 +146,7 @@ const Controller = (() => {
                 }
                 else {
                     player2.wins++;
+                    // Gameboard.outcomeUpdate[0] = 'gameover';
                     gameMessages.textContent = `${player2.name} wins! 
                     You've won ${player2.wins}, and ${player1.name} has won ${player1.wins}. 
                     Play again?`;
@@ -146,6 +154,7 @@ const Controller = (() => {
                     turn = player1.name;
                 }
             }
+            else if (outcome === 'won' || outcome === 'draw' || outcome === 'gameover') { return; }
             else {
             switchTurn();
             }
@@ -153,7 +162,7 @@ const Controller = (() => {
     });
 
     clearBoardBtn.addEventListener('click', () => {
-        if (outcome === '' || outcome === 'draw') {
+        if (outcome === 'start' || outcome === 'playing') {
             if (turnCounter % 2 === 1) {
                 if (turn.includes('1')) {
                 turn = player2.name;
@@ -167,7 +176,7 @@ const Controller = (() => {
     playAgain = () => {
         Gameboard.clearBoard();
         Gameboard.outcomeUpdate[0] = 'start';
-        outcome = '';
+        outcome = 'start';
         turnCounter = 0;
         playAgainBtn.classList.add('hidden');
         newPlayersBtn.classList.add('hidden');
