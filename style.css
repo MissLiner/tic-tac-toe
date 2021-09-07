@@ -107,6 +107,13 @@ table {
     display:none !important;
 }
 
+#scoreboard {
+    margin: auto;
+    top: 155px;
+    width: 100%;
+    position: absolute;
+}
+
 #start-btn {
     grid-column-start: 1;
     grid-column-end: 3;

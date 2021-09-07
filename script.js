@@ -189,6 +189,9 @@ const Controller = (() => {
         playAgain();
         gameMessages.textContent = ``;
         playerForm.classList.remove('hidden');
+        document.getElementById('scoreboard1').textContent = '';
+        document.getElementById('scoreboard2').textContent = '';
+        document.getElementById('scoreboard3').textContent = '';
         player1.wins = 0;
         player2.wins = 0;
         drawCounter = 0;
