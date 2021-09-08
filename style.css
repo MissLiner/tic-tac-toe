@@ -4,16 +4,11 @@
     text-align: center;
 }
 
-h1 {
-    color:#381874;
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
 body {
     background-color: #7979BC;
     background-image:url(files/ttt_stars_background.svg);
     background-repeat: no-repeat;
+    background-size: 100%;
 }
 
 button {
@@ -30,6 +25,12 @@ button {
     width: 150px;
 }
 
+h1 {
+    color:#381874;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
 input {
     background-color: #E8E5FC;
     border: inset;
@@ -43,19 +44,8 @@ table {
     width: 300px;
 }
 
-#gameboard {
-    border: solid;
-    border-color: #24245E;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    height: 400px;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); 
-    position:absolute;
-    top: 65%;
-    left:50%;
-    width: 400px;
+.congrats {
+    font-size: 30px;
 }
 
 .game-box {
@@ -64,6 +54,10 @@ table {
     border-color: #24245E;
     font-size: 100px;
     text-align: center;
+}
+
+.hidden {
+    display:none !important;
 }
 
 #end-display {
@@ -84,6 +78,21 @@ table {
     width: 50%;
 }
 
+#gameboard {
+    border: solid;
+    border-color: #24245E;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height: 400px;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
+    position:absolute;
+    top: 65%;
+    left:50%;
+    width: 400px;
+}
+
 #player-form {
     font-size: 18px;
     display: grid;
@@ -91,20 +100,6 @@ table {
     grid-template-rows: auto;
     margin: auto;
     width: 50%;
-    grid-template-areas:
-        "input input"
-        "button button";
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; */
-}
-
-.congrats {
-    font-size: 30px;
-}
-
-.hidden {
-    display:none !important;
 }
 
 #scoreboard {
