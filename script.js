@@ -167,12 +167,10 @@ const Controller = (() => {
     clearBoardBtn.addEventListener('click', () => {
         if (outcome === 'playing') {
             if (turnCounter % 2 === 1) {
-                if (turn.includes('1')) {
-                turn = player2.name;
-                }
-                else { turn = player1.name; }
+                switchTurn();
             }
             gameMessages.textContent = `${turn}, you start again`;
+            turnCounter = 0;
             clearBoard();
         }
     })
