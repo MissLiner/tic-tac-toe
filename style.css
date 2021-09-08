@@ -60,6 +60,14 @@ table {
     display:none !important;
 }
 
+#clear-board-btn {
+    bottom: 0px;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
 #end-display {
     display: grid;
     grid-template-columns: 50% 50%;
