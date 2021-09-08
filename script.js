@@ -131,6 +131,9 @@ const Controller = (() => {
         document.getElementById('scoreboard2').textContent = `${player2.name}: ${player2.wins}`;
         document.getElementById('scoreboard3').textContent = `Draws:${drawCounter}`;
     }
+    startBtn.addEventListener('click', () => {
+        updateScoreboard();
+    })
     const winGame = (winner, loser) => {
         winner.wins++;
         gameMessages.textContent = `${winner.name} wins! Play again?`
@@ -139,7 +142,6 @@ const Controller = (() => {
         clearBoardBtn.classList.add('hidden');
         turn = loser.name;
     }
-
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             outcome = Gameboard.getNewOutcome();
