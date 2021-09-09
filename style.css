@@ -118,10 +118,12 @@ table {
     font-size: 20px;
     grid-template-columns: 50% 50%;
     grid-template-rows: 1fr 1fr;
-    margin: auto;
-    bottom: 0px;
     padding: 10px;
-    position:relative;
+    position: absolute;
+    text-align: center;
+    left: 50%;
+    top: 150px;
+    transform: translate(-50%, 0);
     width: 275px;;
 }
 #scoreboard3 {
@@ -132,6 +134,7 @@ table {
 #start-btn {
     grid-column-start: 1;
     grid-column-end: 3;
+    margin-top: 10px;
 }
 
 #title-img {

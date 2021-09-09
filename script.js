@@ -8,6 +8,7 @@ const clearBoardBtn = document.getElementById('clear-board-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
 const newPlayersBtn = document.getElementById('new-players-btn');
 const endDisplay = document.getElementById('end-display');
+const scoreboard = document.getElementById('scoreboard');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -25,7 +26,9 @@ startBtn.addEventListener('click', () => {
     playerInput1.value = '';
     playerInput2.value = '';
     playerForm.classList.add('hidden');
+    scoreboard.classList.remove('hidden');
     clearBoardBtn.classList.remove('hidden');
+
     gameMessages.textContent = `${player1.name}, you start!`
 })
 
@@ -182,6 +185,7 @@ const Controller = (() => {
         outcome = 'start';
         turnCounter = 0;
         endDisplay.classList.add('hidden');
+        scoreboard.classList.add('hidden');
         clearBoardBtn.classList.remove('hidden');
         gameMessages.textContent = `${turn}, you start, since you lost`
     }
