@@ -132,7 +132,7 @@ const Controller = (() => {
     const updateScoreboard = () => {
         document.getElementById('scoreboard1').textContent = `${player1.name}: ${player1.wins}`;
         document.getElementById('scoreboard2').textContent = `${player2.name}: ${player2.wins}`;
-        document.getElementById('scoreboard3').textContent = `Draws:${drawCounter}`;
+        document.getElementById('scoreboard3').textContent = `Draws: ${drawCounter}`;
     }
     startBtn.addEventListener('click', () => {
         updateScoreboard();
@@ -185,9 +185,8 @@ const Controller = (() => {
         outcome = 'start';
         turnCounter = 0;
         endDisplay.classList.add('hidden');
-        scoreboard.classList.add('hidden');
         clearBoardBtn.classList.remove('hidden');
-        gameMessages.textContent = `${turn}, you start, since you lost`
+        gameMessages.textContent = `Loser goes first, so it's ${turn}'s turn`
     }
     playAgainBtn.addEventListener('click', () => {
         playAgain();
