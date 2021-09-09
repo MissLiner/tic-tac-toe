@@ -91,9 +91,7 @@ const Gameboard = (() => {
     });
 
     const clearBoard = () => {
-        for (i = 0; i < 9; i++) {
-            board[i] = '';
-        }
+        board.fill('');
         gameBoxes.forEach(box => {
             box.textContent = '';
         })
@@ -180,7 +178,7 @@ const Controller = (() => {
             }
             gameMessages.textContent = `${turn}, you start again`;
             turnCounter = 0;
-            clearBoard();
+            Gameboard.clearBoard();
         }
     })
 
@@ -189,7 +187,6 @@ const Controller = (() => {
         outcome = 'start';
         turnCounter = 0;
         playAgainBtn.classList.add('hidden');
-        // boardBtns.classList.remove('hidden');
         gameMessages.textContent = `Loser goes first, so it's ${turn}'s turn`
     }
     playAgainBtn.addEventListener('click', () => {
