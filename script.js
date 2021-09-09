@@ -143,7 +143,7 @@ const Controller = (() => {
         gameMessages.textContent = `${winner.name} wins! Play again?`
         updateScoreboard();
         playAgainBtn.classList.remove('hidden');
-        boardBtns.classList.add('hidden');
+        // boardBtns.classList.add('hidden');
         turn = loser.name;
     }
     gameBoxes.forEach(box => {
@@ -162,7 +162,7 @@ const Controller = (() => {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 updateScoreboard();
                 playAgainBtn.classList.remove('hidden');
-                boardBtns.classList.add('hidden');
+                // boardBtns.classList.add('hidden');
             }
             else if (outcome === 'playing') {
                 switchTurn();
@@ -186,7 +186,7 @@ const Controller = (() => {
         outcome = 'start';
         turnCounter = 0;
         playAgainBtn.classList.add('hidden');
-        boardBtns.classList.remove('hidden');
+        // boardBtns.classList.remove('hidden');
         gameMessages.textContent = `Loser goes first, so it's ${turn}'s turn`
     }
     playAgainBtn.addEventListener('click', () => {

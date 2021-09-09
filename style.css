@@ -72,14 +72,6 @@ table {
     transform: translate(-50%, 0);
 }
 
-#play-again-btn {
-    /* display: grid;
-    grid-template-columns: 50% 50%; */
-    /* height: auto; */
-    margin: auto;
-    /* width:300px; */
-}
-
 #game-messages {
     color: #E8E5FC;
     font-weight: bold;
