@@ -7,7 +7,6 @@ const playerInput2 = document.getElementById('player-input-2');
 const clearBoardBtn = document.getElementById('clear-board-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
 const newPlayersBtn = document.getElementById('new-players-btn');
-// const endDisplay = document.getElementById('end-display');
 const scoreboard = document.getElementById('scoreboard');
 const boardBtns = document.getElementById('board-btns');
 
@@ -26,11 +25,10 @@ startBtn.addEventListener('click', () => {
     player2.name = playerInput2.value;
     playerInput1.value = '';
     playerInput2.value = '';
+    gameMessages.textContent = `${player1.name}, you start!`
     playerForm.classList.add('hidden');
     scoreboard.classList.remove('hidden');
     boardBtns.classList.remove('hidden');
-
-    gameMessages.textContent = `${player1.name}, you start!`
 })
 
 const Gameboard = (() => {
@@ -49,33 +47,31 @@ const Gameboard = (() => {
         for (i = 0; i < 3; i++) {
             column.push([i, i + 3, i + 6]);
         }
-        checkEquality = (a, b, c) => {
+        const checkEquality = (a, b, c) => {
             if (board[a] && board[a] === board[b] && 
                 board[b] === board[c]) { return true };
         }
-        checkLine = (array) => {
+        const checkLine = (array) => {
             for (i = 0; i < array.length; i++) {
                 if (checkEquality(array[i][0], array[i][1], array[i][2]) === true) { 
                     console.log(array);
                     return true };
             }
         }
-
         if ((checkLine(row) || checkLine(column) || checkLine(diag)) === true) { 
             newOutcome = `won` 
         }
-
         else if (newOutcome === 'playing' && Controller.getTurnCounter() === 8) {
             newOutcome = 'draw';
         }
         else { newOutcome = 'playing' }
     }
+
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             if (newOutcome === 'won' || newOutcome === 'draw') {
                 newOutcome = 'gameover';
             }
-
             else if (newOutcome === 'start' || newOutcome === 'playing') {
                 if (box.textContent === '') {
                     if (Controller.getTurn() === `${player1.name}`) {
@@ -91,7 +87,8 @@ const Gameboard = (() => {
             }
         });
     });
-    clearBoard = () => {
+
+    const clearBoard = () => {
         for (i = 0; i < 9; i++) {
             board[i] = '';
         }
@@ -100,6 +97,7 @@ const Gameboard = (() => {
         })
         newOutcome = 'start';
     }
+
     return {
         getNewOutcome,
         clearBoard,
@@ -108,6 +106,7 @@ const Gameboard = (() => {
 
 const Controller = (() => {
     gameMessages.textContent = 'Who wants to play?'
+
     let turn = '';
     const getTurn = () => turn;
     let turnCounter = 0;
@@ -130,22 +129,25 @@ const Controller = (() => {
         gameMessages.textContent = `${turn}, it's your turn!`
         turnCounter++;
     }
+
     const updateScoreboard = () => {
         document.getElementById('scoreboard1').textContent = `${player1.name}: ${player1.wins}`;
         document.getElementById('scoreboard2').textContent = `${player2.name}: ${player2.wins}`;
         document.getElementById('scoreboard3').textContent = `Draws: ${drawCounter}`;
     }
+
     startBtn.addEventListener('click', () => {
         updateScoreboard();
     })
+
     const winGame = (winner, loser) => {
         winner.wins++;
         gameMessages.textContent = `${winner.name} wins! Play again?`
         updateScoreboard();
         playAgainBtn.classList.remove('hidden');
-        // boardBtns.classList.add('hidden');
         turn = loser.name;
     }
+
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
             outcome = Gameboard.getNewOutcome();
@@ -162,7 +164,6 @@ const Controller = (() => {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 updateScoreboard();
                 playAgainBtn.classList.remove('hidden');
-                // boardBtns.classList.add('hidden');
             }
             else if (outcome === 'playing') {
                 switchTurn();
@@ -181,7 +182,7 @@ const Controller = (() => {
         }
     })
 
-    playAgain = () => {
+    const playAgain = () => {
         Gameboard.clearBoard();
         outcome = 'start';
         turnCounter = 0;
@@ -193,7 +194,7 @@ const Controller = (() => {
         playAgain();
     })
 
-    resetPlayers = () => {
+    const resetPlayers = () => {
         playAgain();
         gameMessages.textContent = 'Who wants to play?'
         playerForm.classList.remove('hidden');
@@ -206,8 +207,7 @@ const Controller = (() => {
     }
     newPlayersBtn.addEventListener('click', () => {
         resetPlayers();
-    }
-    )
+    })
 
     return {
         getTurn,
