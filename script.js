@@ -9,6 +9,7 @@ const playAgainBtn = document.getElementById('play-again-btn');
 const newPlayersBtn = document.getElementById('new-players-btn');
 const endDisplay = document.getElementById('end-display');
 const scoreboard = document.getElementById('scoreboard');
+const boardBtns = document.getElementById('board-btns');
 
 const playerFactory = (name, marker) => {
     this.name = name;
@@ -27,7 +28,7 @@ startBtn.addEventListener('click', () => {
     playerInput2.value = '';
     playerForm.classList.add('hidden');
     scoreboard.classList.remove('hidden');
-    clearBoardBtn.classList.remove('hidden');
+    boardBtns.classList.remove('hidden');
 
     gameMessages.textContent = `${player1.name}, you start!`
 })
@@ -142,7 +143,7 @@ const Controller = (() => {
         gameMessages.textContent = `${winner.name} wins! Play again?`
         updateScoreboard();
         endDisplay.classList.remove('hidden');
-        clearBoardBtn.classList.add('hidden');
+        boardBtns.classList.add('hidden');
         turn = loser.name;
     }
     gameBoxes.forEach(box => {
@@ -161,7 +162,7 @@ const Controller = (() => {
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 updateScoreboard();
                 endDisplay.classList.remove('hidden');
-                clearBoardBtn.classList.add('hidden');
+                boardBtns.classList.add('hidden');
             }
             else if (outcome === 'playing') {
                 switchTurn();
@@ -185,7 +186,7 @@ const Controller = (() => {
         outcome = 'start';
         turnCounter = 0;
         endDisplay.classList.add('hidden');
-        clearBoardBtn.classList.remove('hidden');
+        boardBtns.classList.remove('hidden');
         gameMessages.textContent = `Loser goes first, so it's ${turn}'s turn`
     }
     playAgainBtn.addEventListener('click', () => {

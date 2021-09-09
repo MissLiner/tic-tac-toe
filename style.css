@@ -64,7 +64,7 @@ table {
     text-align: center;
 }
 
-#clear-board-btn {
+#board-btns {
     top: 615px;
     position: absolute;
     text-align: center;
