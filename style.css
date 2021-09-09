@@ -116,7 +116,6 @@ table {
 }
 
 #scoreboard {
-    
     border: solid;
     border-color:#7979BC;
     border-radius: 5px;
@@ -129,7 +128,7 @@ table {
     /* grid-template-columns: 50% 50%;
     grid-template-rows: 1fr 1fr; */
     grid-gap: 4px;
-    left: 100px;
+    left: 140px;
     top: 300px;
     position:absolute;
     /* padding: 10px; */
@@ -149,5 +148,5 @@ table {
 
 #title-img {
     margin-top: 10px;
-    width: 40%;
+    width: 500px;
 }
