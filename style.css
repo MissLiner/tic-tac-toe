@@ -68,7 +68,7 @@ table {
     left: 50%;
     position: absolute;
     text-align: center;
-    top: 615px;
+    bottom: 5%;
     transform: translate(-50%, 0);
 }
 
