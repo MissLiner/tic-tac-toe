@@ -7,7 +7,7 @@ const playerInput2 = document.getElementById('player-input-2');
 const clearBoardBtn = document.getElementById('clear-board-btn');
 const playAgainBtn = document.getElementById('play-again-btn');
 const newPlayersBtn = document.getElementById('new-players-btn');
-const endDisplay = document.getElementById('end-display');
+// const endDisplay = document.getElementById('end-display');
 const scoreboard = document.getElementById('scoreboard');
 const boardBtns = document.getElementById('board-btns');
 
@@ -142,7 +142,7 @@ const Controller = (() => {
         winner.wins++;
         gameMessages.textContent = `${winner.name} wins! Play again?`
         updateScoreboard();
-        endDisplay.classList.remove('hidden');
+        playAgainBtn.classList.remove('hidden');
         boardBtns.classList.add('hidden');
         turn = loser.name;
     }
@@ -161,7 +161,7 @@ const Controller = (() => {
                 drawCounter++;
                 gameMessages.textContent = 'It\'s a draw! Play again?';
                 updateScoreboard();
-                endDisplay.classList.remove('hidden');
+                playAgainBtn.classList.remove('hidden');
                 boardBtns.classList.add('hidden');
             }
             else if (outcome === 'playing') {
@@ -185,7 +185,7 @@ const Controller = (() => {
         Gameboard.clearBoard();
         outcome = 'start';
         turnCounter = 0;
-        endDisplay.classList.add('hidden');
+        playAgainBtn.classList.add('hidden');
         boardBtns.classList.remove('hidden');
         gameMessages.textContent = `Loser goes first, so it's ${turn}'s turn`
     }
