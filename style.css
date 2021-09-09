@@ -18,9 +18,9 @@ button {
     border-radius: 6px;
     color:#CAC7FE;
     font-size: 19px;
-    margin-top: 0px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 0px;
     width: 150px;
 }
 
@@ -65,21 +65,21 @@ table {
 }
 
 #board-btns {
-    top: 615px;
+    left: 50%;
     position: absolute;
     text-align: center;
-    left: 50%;
+    top: 615px;
     transform: translate(-50%, 0);
 }
 
 #game-messages {
     color: #E8E5FC;
-    font-weight: bold;
     font-size: 22px;
+    font-weight: bold;
     margin-bottom: 10px;
-    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 10px;
     width: 50%;
 }
 
@@ -90,28 +90,28 @@ table {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     height: 400px;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%); 
+    left:50%;
     position:absolute;
     top: 50%;
-    left:50%;
     width: 400px;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
 }
 
 #main-container {
     height: 400px;
-    margin: auto;
-    -ms-transform: translate(-50%, -50%);
-    top: 60%;
     left:50%;
-    transform: translate(-50%, -50%); 
+    margin: auto;
     position:absolute;
+    top: 60%;
     width: 700px;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); 
 }
 
 #player-form {
-    font-size: 18px;
     display: grid;
+    font-size: 18px;
     grid-template-columns: 50% 50%;
     grid-template-rows: auto;
     margin: auto;
@@ -126,15 +126,15 @@ table {
     color: #E8E5FC;
     display: grid;
     float: right;
-    font-weight: bold;
     font-size: 20px;
+    font-weight: bold;
     grid-gap: 4px;
     width:auto;
 }
 
 #start-btn {
-    grid-column-start: 1;
     grid-column-end: 3;
+    grid-column-start: 1;
     margin-top: 10px;
 }
 
