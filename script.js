@@ -21,14 +21,16 @@ const player1 = playerFactory('', 'X');
 const player2 = playerFactory('', 'O');
 
 startBtn.addEventListener('click', () => {
-    player1.name = playerInput1.value;
-    player2.name = playerInput2.value;
-    playerInput1.value = '';
-    playerInput2.value = '';
-    gameMessages.textContent = `${player1.name}, you start!`
-    playerForm.classList.add('hidden');
-    scoreboard.classList.remove('hidden');
-    boardBtns.classList.remove('hidden');
+    if (playerInput1.value && playerInput2.value) {
+        player1.name = playerInput1.value;
+        player2.name = playerInput2.value;
+        playerInput1.value = '';
+        playerInput2.value = '';
+        gameMessages.textContent = `${player1.name}, you start!`
+        playerForm.classList.add('hidden');
+        scoreboard.classList.remove('hidden');
+        boardBtns.classList.remove('hidden');
+    }
 })
 
 const Gameboard = (() => {
@@ -69,11 +71,11 @@ const Gameboard = (() => {
 
     gameBoxes.forEach(box => {
         box.addEventListener('click', () => {
-            if (newOutcome === 'won' || newOutcome === 'draw') {
+            if (newOutcome === 'won' || newOutcome === 'draw')  {
                 newOutcome = 'gameover';
             }
             else if (newOutcome === 'start' || newOutcome === 'playing') {
-                if (box.textContent === '') {
+                if (box.textContent === '' && player1.name !== '' && player2.name !== '') {
                     if (Controller.getTurn() === `${player1.name}`) {
                         box.textContent = player1.marker;
                         board[box.id] = '1';
